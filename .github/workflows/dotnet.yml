@@ -44,5 +44,5 @@ jobs:
        with:
          app-name: 'aurtest'
          slot-name: 'Production'
-         package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+         package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B81E735C09074B33ADA83CB9E564C1ED }}
