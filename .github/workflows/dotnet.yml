@@ -38,6 +38,6 @@ jobs:
         # Name of the Azure Function App
         app-name: aurtest
         # Path to package or folder. *.zip or a folder to deploy
-        package: .
+        package: .zip
         # Function app slot to be deploy to
         slot-name: PRODUCTION
