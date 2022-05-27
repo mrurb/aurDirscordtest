@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace aurtest
 {
+    //change
     public static class Function1
     {
         [FunctionName("Function1")]
