@@ -24,6 +24,9 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
 
       - name: 'Resolve Project Dependencies Using Dotnet'
         shell: pwsh
