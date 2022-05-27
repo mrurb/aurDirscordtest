@@ -6,7 +6,7 @@ name: Build and deploy
 on:
   push:
     branches:
-      - master2
+      - master
   workflow_dispatch:
 
 env:
