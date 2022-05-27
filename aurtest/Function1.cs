@@ -13,7 +13,7 @@ namespace aurtest
     //change 2
     public static class Function1
     {
-        [FunctionName("Function3")]
+        [FunctionName("Function4")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
