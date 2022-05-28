@@ -70,13 +70,19 @@ namespace aurtest
                 
                 await restInteraction.Channel.SendMessageAsync("gay");
             }*/
-
+            string v1;
             string value = (string)(((RestSlashCommand)restInteraction).Data.Options.First().Value);
             if (value == "delay")
             {
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                int time = (int)(((RestSlashCommand)restInteraction).Data.Options.Skip(1).First().Value);
+                await Task.Delay(TimeSpan.FromSeconds(time));
+                v1 = restInteraction.Respond($"stuff delay {time}");
             }
-            string v1 = restInteraction.Respond("stuff");
+            else
+            {            
+                v1 = restInteraction.Respond("stuff");
+
+            }
          
 
             return new ContentResult() { Content = v1, StatusCode = 200, ContentType = "application/json" };
@@ -110,9 +116,13 @@ namespace aurtest
                         .WithDescription("bad")
                         .WithType(ApplicationCommandOptionType.String))
                     .AddOption(new SlashCommandOptionBuilder()
+                        .WithName("time")
+                        .WithDescription("bad")
+                        .WithType(ApplicationCommandOptionType.Number))
+                    /*.AddOption(new SlashCommandOptionBuilder()
                         .WithName("user")
                         .WithDescription("bad")
-                        .WithType(ApplicationCommandOptionType.User))
+                        .WithType(ApplicationCommandOptionType.User))*/
                 );
 
             await restGuild.CreateApplicationCommandAsync(guildCommand.Build());
