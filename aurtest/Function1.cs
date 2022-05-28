@@ -12,6 +12,7 @@ using Discord;
 using Discord.WebSocket;
 using Discord.Rest;
 using Discord.Net;
+using System.Linq;
 
 namespace aurtest
 {
@@ -58,18 +59,25 @@ namespace aurtest
 
                 throw;
             }
-            
 
-            if (restInteraction.IsDMInteraction)
+
+            /*if (restInteraction.IsDMInteraction)
             {
-                await restInteraction.User.SendMessageAsync("gay");
+                await restInteraction.User.SendMessageAsync($"{restInteraction.User.Mention}gay");
             }
             else
             {
                 
                 await restInteraction.Channel.SendMessageAsync("gay");
+            }*/
+
+            string value = (string)(((RestSlashCommand)restInteraction).Data.Options.First().Value);
+            if (value == "delay")
+            {
+                await Task.Delay(TimeSpan.FromSeconds(10));
             }
-            string v1 = restInteraction.Respond("extra gay");
+            string v1 = restInteraction.Respond("stuff");
+         
 
             return new ContentResult() { Content = v1, StatusCode = 200, ContentType = "application/json" };
         }
@@ -90,9 +98,22 @@ namespace aurtest
         {
             RestGuild restGuild = await client.GetGuildAsync(538880298830790686);
 
-            var guildCommand = new SlashCommandBuilder();
-            guildCommand.WithName("bad");
-            guildCommand.WithDescription("Your bad");
+            var guildCommand = new SlashCommandBuilder()
+                .WithName("bad")
+                .WithDescription("bad")
+                .AddOption(new SlashCommandOptionBuilder()
+                    .WithName("badoption")
+                    .WithDescription("bad")
+                    .WithType(ApplicationCommandOptionType.SubCommand)
+                    .AddOption(new SlashCommandOptionBuilder()
+                        .WithName("teststring")
+                        .WithDescription("bad")
+                        .WithType(ApplicationCommandOptionType.String))
+                    .AddOption(new SlashCommandOptionBuilder()
+                        .WithName("user")
+                        .WithDescription("bad")
+                        .WithType(ApplicationCommandOptionType.User))
+                );
 
             await restGuild.CreateApplicationCommandAsync(guildCommand.Build());
         }
